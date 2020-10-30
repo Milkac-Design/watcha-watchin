@@ -2,31 +2,31 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import AddMovie from '../components/AddMovie';
 import Layout from '../components/Layout';
+import nextCookies from 'next-cookies';
+import AddMovieToList from '../components/AddMovieToList';
 
-export default function MyMovies() {
+export default function MyMovies(props) {
   const [movieData, setMovieData] = useState({});
 
   //playing around with fake database
   //-------------------------------
-  const [addedMovie, setAddedMovie] = useState([
-    {
-      movieTitle: '',
-      moviePoster: '',
-    },
-  ]);
+  const [addedMovie, setAddedMovie] = useState(props.movieFromCookies);
+  //Make a cookie!!!
   //-------------------------------
   //Start of the good code
 
   useEffect(() => {
     async function apiCall() {
       const response = await fetch(
-        `http://www.omdbapi.com/?apikey={apikey}&t=batman`,
+        `http://www.omdbapi.com/?apikey=(apikey)&t=batman`,
       );
       const data = await response.json();
       setMovieData(data);
     }
     apiCall();
   }, []);
+
+  console.log(addedMovie);
 
   return (
     <div className="paigeContainer">
@@ -75,11 +75,11 @@ export default function MyMovies() {
           </div>
           <div className="movieContainer">
             <div className="moviePosterStyle">
-              <img src={addedMovie.moviePoster} alt="movie poster" />
+              {/* <img src={addedMovie[0].poster} alt="movie poster" /> */}
             </div>
             <div className="movieDataStyle">
               <div className="movieNameStyle">
-                <h3>{addedMovie.movieTitle}</h3>
+                {/* <h3>{addedMovie[0].name}</h3> */}
               </div>
               <div className="ratingStyle">
                 <span class="fa fa-star checked"></span>
@@ -123,9 +123,21 @@ export default function MyMovies() {
           </div>
 
           <AddMovie />
+          <AddMovieToList movie={props.movieFromCookies} />
         </div>
         <div className="footerBuffer"></div>
       </Layout>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const allCookies = nextCookies(context);
+  const movieFromCookies = allCookies.movie || [];
+  console.log(movieFromCookies);
+  return {
+    props: {
+      movieFromCookies,
+    },
+  };
 }
