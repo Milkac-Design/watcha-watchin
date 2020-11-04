@@ -1,51 +1,14 @@
 import { useState } from 'react';
 import cookie from 'js-cookie';
 
-//--------------
-export function getMovieFromCookies() {
-  const movie = cookie.getJSON('movie') || [];
-  return movie;
-}
-
-// export function AddMovieToList(name, poster) {
-//   return (
-//     <div className="movieContainer">
-//       <div className="moviePosterStyle">
-//         <img src={poster} alt="movie poster" />
-//       </div>
-//       <div className="movieDataStyle">
-//         <div className="movieNameStyle">
-//           <h3>{name}</h3>
-//         </div>
-//         <div className="ratingStyle">
-//           <span class="fa fa-star checked"></span>
-//           <span className="fa fa-star checked"></span>
-//           <span className="fa fa-star checked"></span>
-//           <span className="fa fa-star checked"></span>
-//           <span className="fa fa-star checked"></span>
-//         </div>
-//         <div className="reviewStyle">
-//           <p>
-//             Lorizzle ipsum dolor sit amet, consectetizzle adipiscing elit.
-//             Daahng dawg sapien velit, hizzle volutpizzle, suscipizzle fizzle, yo
-//             vizzle, break yo neck, yall. Pellentesque yo mamma tortor. Sizzle
-//             erizzle.
-//           </p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-//--------------
-export default function AddMovie() {
+export default function AddMovie(apiKey) {
   const [addedMovie, setAddedMovie] = useState({});
   const [movieTitle, setMovieTitle] = useState({});
-
+  const [review, setReview] = useState('');
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=(apikey)a&t=${movieTitle}`,
+      `http://www.omdbapi.com/?apikey=${apiKey.apiKey}a&t=${movieTitle}`,
     );
     const data = await response.json();
     setAddedMovie(data);
@@ -65,6 +28,11 @@ export default function AddMovie() {
     return newMovie;
   }
 
+  //----------
+
+  console.log(review);
+  //----------
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -75,6 +43,27 @@ export default function AddMovie() {
         onClick={(e) => addMovieToCookie(addedMovie.Title, addedMovie.Poster)}
       >
         add
+      </button>
+      <button
+        onClick={async (e) => {
+          await fetch('/api/movies', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              movies: {
+                name: addedMovie.Title,
+                poster: addedMovie.Poster,
+                review: review,
+              },
+            }),
+          });
+          // const newMovie = (await response.json()).user;
+          window.location.href = `/mymovies`;
+        }}
+      >
+        add to db
       </button>
       <div className="movieContainer">
         <div className="moviePosterStyle">
@@ -97,14 +86,15 @@ export default function AddMovie() {
             <label for="rate-1" class="fa fa-star"></label>
           </div>
           <div className="reviewStyle">
-            <form action="" method="post">
+            <form>
               <textarea
                 className="commentBox"
                 rows="3"
                 name="comment"
+                onChange={(e) => setReview(e.target.value)}
               ></textarea>
               <br />
-              <input type="submit" value="comment" />
+              <input type="text" value="comment" />
             </form>
           </div>
         </div>

@@ -1,32 +1,27 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AddMovie from '../components/AddMovie';
 import Layout from '../components/Layout';
 import nextCookies from 'next-cookies';
 import AddMovieToList from '../components/AddMovieToList';
 
 export default function MyMovies(props) {
-  const [movieData, setMovieData] = useState({});
+  const [movieData, setMovieData] = useState(props.movies);
 
   //playing around with fake database
   //-------------------------------
-  const [addedMovie, setAddedMovie] = useState(props.movieFromCookies);
-  //Make a cookie!!!
+
+  // function pushMovie() {
+  //   let pushedMovie;
+  //   pushedMovie = [...movieData];
+  //   pushedMovie.push(props.movieFromCookies[0]);
+  //   setMovieData(pushedMovie);
+  //   console.log(pushedMovie);
+  // }
+
+  //Make a cookie!!! Maybe??
   //-------------------------------
   //Start of the good code
-
-  useEffect(() => {
-    async function apiCall() {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=(apikey)&t=batman`,
-      );
-      const data = await response.json();
-      setMovieData(data);
-    }
-    apiCall();
-  }, []);
-
-  console.log(addedMovie);
 
   return (
     <div className="paigeContainer">
@@ -45,85 +40,47 @@ export default function MyMovies(props) {
       <Layout>
         <h1 className="titleStyle">My Movies</h1>
         <div className="outsideMovieContainer">
-          <div className="movieContainer">
-            <div className="moviePosterStyle">
-              <img src={movieData.Poster} alt="movie poster" />
-            </div>
-            <div className="movieDataStyle">
-              <div className="movieNameStyle">
-                <h3>{movieData.Title}</h3>
-              </div>
-              <div className="ratingStyle">
-                <span class="fa fa-star "></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-              </div>
-              <div className="reviewStyle">
-                <p>
-                  Lorizzle ipsum dolor sit amet, consectetizzle adipiscing elit.
-                  Daahng dawg sapien velit, hizzle volutpizzle, suscipizzle
-                  fizzle, yo vizzle, break yo neck, yall. Pellentesque yo mamma
-                  tortor. Sizzle erizzle. Lorizzle ipsum dolor sit amet,
-                  consectetizzle adipiscing elit. Daahng dawg sapien velit,
-                  hizzle volutpizzle, suscipizzle fizzle, yo vizzle, break yo
-                  neck, yall. Pellentesque yo mamma tortor. Sizzle erizzle.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="movieContainer">
-            <div className="moviePosterStyle">
-              {/* <img src={addedMovie[0].poster} alt="movie poster" /> */}
-            </div>
-            <div className="movieDataStyle">
-              <div className="movieNameStyle">
-                {/* <h3>{addedMovie[0].name}</h3> */}
-              </div>
-              <div className="ratingStyle">
-                <span class="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-              </div>
-              <div className="reviewStyle">
-                <p>
-                  Lorizzle ipsum dolor sit amet, consectetizzle adipiscing elit.
-                  Daahng dawg sapien velit, hizzle volutpizzle, suscipizzle
-                  fizzle, yo vizzle, break yo neck, yall. Pellentesque yo mamma
-                  tortor. Sizzle erizzle.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="movieContainer">
-            <div className="moviePosterStyle"></div>
-            <div className="movieDataStyle">
-              <div className="movieNameStyle">
-                <h3>Movie The Third</h3>
-              </div>
-              <div className="ratingStyle">
-                <span class="fa fa-star "></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-              </div>
-              <div className="reviewStyle">
-                <p>
-                  Lorizzle ipsum dolor sit amet, consectetizzle adipiscing elit.
-                  Daahng dawg sapien velit, hizzle volutpizzle, suscipizzle
-                  fizzle, yo vizzle, break yo neck, yall. Pellentesque yo mamma
-                  tortor. Sizzle erizzle.
-                </p>
-              </div>
-            </div>
-          </div>
+          <>
+            {movieData.map((movie) => {
+              return (
+                <div className="movieContainer">
+                  <div className="moviePosterStyle">
+                    <img src={movie.poster} alt="movie poster" />
+                  </div>
+                  <div className="movieDataStyle">
+                    <div className="movieNameStyle">
+                      <h3>{movie.name}</h3>
+                    </div>
+                    <div className="ratingStyle">
+                      <input type="radio" name="rate" id="rate-5" />
+                      <label for="rate-5" class="fa fa-star"></label>
+                      <input type="radio" name="rate" id="rate-4" />
+                      <label for="rate-4" class="fa fa-star"></label>
+                      <input type="radio" name="rate" id="rate-3" />
+                      <label for="rate-3" class="fa fa-star"></label>
+                      <input type="radio" name="rate" id="rate-2" />
+                      <label for="rate-2" class="fa fa-star"></label>
+                      <input type="radio" name="rate" id="rate-1" />
+                      <label for="rate-1" class="fa fa-star"></label>
+                    </div>
+                    <div className="reviewStyle">
+                      <p>{movie.review}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={async (e) => {
+                      await fetch(`/api/movies`, { method: 'DELETE' });
+                    }}
+                  >
+                    delete
+                  </button>
+                </div>
+              );
+            })}
+          </>
 
-          <AddMovie />
-          <AddMovieToList movie={props.movieFromCookies} />
+          <AddMovie apiKey={props.apiKey} />
+          {/* <AddMovieToList movie={props.movieFromCookies} /> */}
         </div>
         <div className="footerBuffer"></div>
       </Layout>
@@ -132,12 +89,16 @@ export default function MyMovies(props) {
 }
 
 export async function getServerSideProps(context) {
+  const { getMovies } = await import('../utils/database');
+  const movies = await getMovies();
   const allCookies = nextCookies(context);
   const movieFromCookies = allCookies.movie || [];
-  console.log(movieFromCookies);
+  const apiKey = process.env.apiKey;
   return {
     props: {
       movieFromCookies,
+      movies,
+      apiKey,
     },
   };
 }
