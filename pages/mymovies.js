@@ -3,25 +3,9 @@ import { useState } from 'react';
 import AddMovie from '../components/AddMovie';
 import Layout from '../components/Layout';
 import nextCookies from 'next-cookies';
-import AddMovieToList from '../components/AddMovieToList';
 
 export default function MyMovies(props) {
   const [movieData, setMovieData] = useState(props.movies);
-
-  //playing around with fake database
-  //-------------------------------
-
-  // function pushMovie() {
-  //   let pushedMovie;
-  //   pushedMovie = [...movieData];
-  //   pushedMovie.push(props.movieFromCookies[0]);
-  //   setMovieData(pushedMovie);
-  //   console.log(pushedMovie);
-  // }
-
-  //Make a cookie!!! Maybe??
-  //-------------------------------
-  //Start of the good code
 
   return (
     <div className="paigeContainer">
@@ -69,7 +53,10 @@ export default function MyMovies(props) {
                   </div>
                   <button
                     onClick={async (e) => {
-                      await fetch(`/api/movies`, { method: 'DELETE' });
+                      await fetch(`/api/movies`, {
+                        method: 'DELETE',
+                        body: JSON.stringify(movie.id),
+                      });
                     }}
                   >
                     delete
@@ -80,7 +67,6 @@ export default function MyMovies(props) {
           </>
 
           <AddMovie apiKey={props.apiKey} />
-          {/* <AddMovieToList movie={props.movieFromCookies} /> */}
         </div>
         <div className="footerBuffer"></div>
       </Layout>

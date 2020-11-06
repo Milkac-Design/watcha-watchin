@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import cookie from 'js-cookie';
+// import cookie from 'js-cookie';
 
 export default function AddMovie(apiKey) {
   const [addedMovie, setAddedMovie] = useState({});
@@ -15,22 +15,16 @@ export default function AddMovie(apiKey) {
     return setAddedMovie;
   }
 
-  function addMovieToCookie(name, poster) {
-    // const movie = getMovieFromCookies();
-    let newMovie;
-    // if (movie.length !== 0) {
-    //   newMovie = [...movie];
-    //   newMovie.push({ name: name, poster: poster });
-    // } else {
-    newMovie = [{ name: name, poster: poster }];
-    //}
-    cookie.set('movie', newMovie);
-    return newMovie;
-  }
+  // function addMovieToCookie(name, poster) {
 
-  //----------
+  //   let newMovie;
 
-  console.log(review);
+  //   newMovie = [{ name: name, poster: poster }];
+
+  //   cookie.set('movie', newMovie);
+  //   return newMovie;
+  // }
+
   //----------
 
   return (
@@ -39,11 +33,6 @@ export default function AddMovie(apiKey) {
         <input type="text" onChange={(e) => setMovieTitle(e.target.value)} />
         <button>search</button>
       </form>
-      <button
-        onClick={(e) => addMovieToCookie(addedMovie.Title, addedMovie.Poster)}
-      >
-        add
-      </button>
       <button
         onClick={async (e) => {
           await fetch('/api/movies', {
@@ -59,7 +48,7 @@ export default function AddMovie(apiKey) {
               },
             }),
           });
-          // const newMovie = (await response.json()).user;
+
           window.location.href = `/mymovies`;
         }}
       >

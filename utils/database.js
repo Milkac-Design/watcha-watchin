@@ -49,3 +49,18 @@ export async function getMovies() {
   const movies = await sql`SELECT * from movies`;
   return movies;
 }
+export async function registerUser(username, password) {
+  const user = await sql`
+    INSERT INTO users
+      (username, password)
+    VALUES
+      (${username}, ${password})
+    RETURNING *;
+  `;
+  return user;
+}
+export async function getUserByUsername(username) {
+  const user = await sql`
+  SELECT * FROM users WHERE username = ${username}`;
+  return user;
+}
