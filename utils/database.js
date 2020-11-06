@@ -1,6 +1,6 @@
 import postgres from 'postgres';
 import dotenv from 'dotenv';
-import setPostgresOnHeroku from './setPostgresOnHeroku';
+import setPostgresOnHeroku from './setPostgressOnHeroku';
 
 setPostgresOnHeroku();
 dotenv.config();
