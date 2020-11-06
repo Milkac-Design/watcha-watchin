@@ -83,7 +83,6 @@ export default function AddMovie(apiKey) {
                 onChange={(e) => setReview(e.target.value)}
               ></textarea>
               <br />
-              <input type="text" value="comment" />
             </form>
           </div>
         </div>

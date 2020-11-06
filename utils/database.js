@@ -1,9 +1,17 @@
 import postgres from 'postgres';
 import dotenv from 'dotenv';
+import setPostgresOnHeroku from './setPostgresOnHeroku';
 
+setPostgresOnHeroku();
 dotenv.config();
 
-const sql = postgres();
+const sql =
+  process.env.NODE_ENV === 'production'
+    ? // Heroku needs SSL connections but
+      // has an "unauthorized" certificate
+      // https://devcenter.heroku.com/changelog-items/852
+      postgres({ ssl: { rejectUnauthorized: false } })
+    : postgres();
 
 export async function insertMovie(movie) {
   const requiredProperties = ['name', 'poster', 'review'];
