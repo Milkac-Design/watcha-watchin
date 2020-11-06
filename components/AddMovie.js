@@ -8,7 +8,7 @@ export default function AddMovie(apiKey) {
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=${apiKey.apiKey}a&t=${movieTitle}`,
+      `https://www.omdbapi.com/?apikey=${apiKey.apiKey}a&t=${movieTitle}`,
     );
     const data = await response.json();
     setAddedMovie(data);
