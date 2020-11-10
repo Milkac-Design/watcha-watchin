@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import Layout from '../components/Layout';
+import { isSessionTokenValid } from '../utils/auth';
+import nextCookies from 'next-cookies';
 
-export default function Home() {
+export default function Home(props) {
   return (
     <div className="paigeContainer">
       <Head>
@@ -12,7 +14,7 @@ export default function Home() {
           rel="stylesheet"
         ></link>
       </Head>
-      <Layout>
+      <Layout loggedIn={props.loggedIn}>
         <h1 className="titleStyle">Watcha Watchin?</h1>
         <div className="outsideContainer">
           <div className="userListStyle">
@@ -30,4 +32,21 @@ export default function Home() {
       </Layout>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const token = nextCookies(context);
+
+  if (!(await isSessionTokenValid(token.session))) {
+    return {
+      redirect: {
+        destination: '/login?returnTo=/.',
+        permanent: false,
+      },
+    };
+  }
+
+  const loggedIn = await isSessionTokenValid(token.session);
+
+  return { props: { loggedIn } };
 }

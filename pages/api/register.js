@@ -20,8 +20,8 @@ export default async function handler(req, res) {
     return res.status(401).send({ success: false });
   }
   const user = await getUserByUsername(username);
-
-  if (user !== 'undefined') {
+  console.log(user);
+  if (user) {
     return res.status(403).send({ success: false });
   }
   try {

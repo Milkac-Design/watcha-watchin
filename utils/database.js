@@ -70,5 +70,56 @@ export async function registerUser(username, password) {
 export async function getUserByUsername(username) {
   const user = await sql`
   SELECT * FROM users WHERE username = ${username}`;
-  return user;
+  return user[0];
+}
+
+export async function insertSession(token, userId) {
+  const sessions = await sql`
+    INSERT INTO sessions
+      (token, userId)
+    VALUES
+      (${token}, ${userId})
+    RETURNING *;
+  `;
+
+  return sessions[0];
+}
+export async function getSessionByToken(token) {
+  const sessions = await sql`
+    SELECT * FROM sessions WHERE token = ${token};
+  `;
+
+  return sessions[0];
+}
+
+export async function deleteSessionByToken(token) {
+  if (token === 'undefined') return;
+  await sql`
+    DELETE FROM sessions WHERE token = ${token};
+  `;
+}
+
+export async function deleteExpiredSessions() {
+  await sql`
+    DELETE FROM sessions WHERE expiry < NOW();
+  `;
+}
+
+// Example of a database query with an Inner Join
+export async function getUserBySessionToken(token) {
+  if (token === 'undefined') return undefined;
+
+  const users = await sql`
+    SELECT
+      users.id,
+      users.username
+    FROM
+      users,
+      sessions
+    WHERE
+      sessions.token = ${token} AND
+      users.id = sessions.userId;
+  `;
+
+  return users[0];
 }

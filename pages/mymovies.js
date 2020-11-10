@@ -3,6 +3,7 @@ import { useState } from 'react';
 import AddMovie from '../components/AddMovie';
 import Layout from '../components/Layout';
 import nextCookies from 'next-cookies';
+import { isSessionTokenValid } from '../utils/auth';
 
 export default function MyMovies(props) {
   const [movieData, setMovieData] = useState(props.movies);
@@ -21,7 +22,7 @@ export default function MyMovies(props) {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         ></link>
       </Head>
-      <Layout>
+      <Layout loggedIn={props.loggedIn}>
         <h1 className="titleStyle">My Movies</h1>
         <div className="outsideMovieContainer">
           <>
@@ -77,14 +78,24 @@ export default function MyMovies(props) {
 export async function getServerSideProps(context) {
   const { getMovies } = await import('../utils/database');
   const movies = await getMovies();
-  const allCookies = nextCookies(context);
-  const movieFromCookies = allCookies.movie || [];
+  const token = nextCookies(context);
+
+  if (!(await isSessionTokenValid(token.session))) {
+    return {
+      redirect: {
+        destination: '/login?returnTo=/mymovies',
+        permanent: false,
+      },
+    };
+  }
+
+  const loggedIn = await isSessionTokenValid(token.session);
   const apiKey = process.env.apiKey;
   return {
     props: {
-      movieFromCookies,
       movies,
       apiKey,
+      loggedIn,
     },
   };
 }

@@ -2,10 +2,15 @@ import Head from 'next/head';
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import nextCookies from 'next-cookies';
+import { isSessionTokenValid } from '../utils/auth';
 
-export default function Login() {
+export default function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
 
   return (
     <>
@@ -24,13 +29,21 @@ export default function Login() {
       <Layout>
         <h1>Login</h1>
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            fetch('/api/login', {
+            const response = await fetch('/api/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ username, password }),
             });
+            const { success } = await response.json();
+
+            if (!success) {
+              setErrorMessage('Login failed!');
+            } else {
+              setErrorMessage('');
+              router.push(props.redirectDestination);
+            }
           }}
         >
           <input
@@ -44,6 +57,7 @@ export default function Login() {
           />
           <button>Login</button>
         </form>
+        <p>{errorMessage}</p>
         <Link href="/register">
           <a>Register</a>
         </Link>
@@ -51,4 +65,22 @@ export default function Login() {
       ;
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const token = nextCookies(context);
+  const redirectDestination = context?.query?.returnTo ?? '/';
+
+  if (await isSessionTokenValid(token.session)) {
+    return {
+      redirect: {
+        destination: redirectDestination,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { loggedIn: false, redirectDestination: redirectDestination },
+  };
 }

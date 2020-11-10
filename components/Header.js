@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
-export default function Header() {
+export default function Header(props) {
+  const loggedInPassed = typeof props.loggedIn !== 'undefined';
+
   return (
     <header className="headerStyle">
       <img className="logoStyle" src="./logo.png" alt="logo" />
@@ -11,9 +13,15 @@ export default function Header() {
         <Link href="/mymovies">
           <a>My Movies</a>
         </Link>
-        <Link href="/">
-          <a>Log Out</a>
-        </Link>
+        {!loggedInPassed ? null : props.loggedIn ? (
+          <Link href="/logout">
+            <a>Log out</a>
+          </Link>
+        ) : (
+          <Link href="/login">
+            <a>Log in</a>
+          </Link>
+        )}
       </nav>
     </header>
   );
