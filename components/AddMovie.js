@@ -5,6 +5,8 @@ export default function AddMovie({ apiKey, id }) {
   const [addedMovie, setAddedMovie] = useState({});
   const [movieTitle, setMovieTitle] = useState({});
   const [review, setReview] = useState('');
+  const [rating, setRating] = useState();
+
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await fetch(
@@ -34,6 +36,7 @@ export default function AddMovie({ apiKey, id }) {
                 poster: addedMovie.Poster,
                 review: review,
                 creator: id,
+                rating: rating,
               },
             }),
           });
@@ -52,15 +55,40 @@ export default function AddMovie({ apiKey, id }) {
             <h3>{addedMovie.Title}</h3>
           </div>
           <div className="ratingStyle">
-            <input type="radio" name="rate" id="rate-5" />
+            <input
+              type="radio"
+              name="rate"
+              id="rate-5"
+              onClick={(e) => setRating(5)}
+            />
             <label for="rate-5" class="fa fa-star"></label>
-            <input type="radio" name="rate" id="rate-4" />
+            <input
+              type="radio"
+              name="rate"
+              id="rate-4"
+              onClick={(e) => setRating(4)}
+            />
             <label for="rate-4" class="fa fa-star"></label>
-            <input type="radio" name="rate" id="rate-3" />
+            <input
+              type="radio"
+              name="rate"
+              id="rate-3"
+              onClick={(e) => setRating(3)}
+            />
             <label for="rate-3" class="fa fa-star"></label>
-            <input type="radio" name="rate" id="rate-2" />
+            <input
+              type="radio"
+              name="rate"
+              id="rate-2"
+              onClick={(e) => setRating(2)}
+            />
             <label for="rate-2" class="fa fa-star"></label>
-            <input type="radio" name="rate" id="rate-1" />
+            <input
+              type="radio"
+              name="rate"
+              id="rate-1"
+              onClick={(e) => setRating(1)}
+            />
             <label for="rate-1" class="fa fa-star"></label>
           </div>
           <div className="reviewStyle">

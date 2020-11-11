@@ -14,7 +14,7 @@ const sql =
     : postgres();
 
 export async function insertMovie(movie) {
-  const requiredProperties = ['name', 'poster', 'review', 'creator'];
+  const requiredProperties = ['name', 'poster', 'review', 'creator', 'rating'];
   const movieProperties = Object.keys(movie);
 
   if (movieProperties.length !== requiredProperties.length) {
@@ -31,14 +31,19 @@ export async function insertMovie(movie) {
 
   const movies = await sql`
     INSERT INTO movies
-      (name, poster, review, creator)
+      (name, poster, review, creator, rating)
     VALUES
-      (${movie.name}, ${movie.poster}, ${movie.review}, ${movie.creator})
+      (${movie.name}, ${movie.poster}, ${movie.review}, ${movie.creator}, ${movie.rating})
     RETURNING *;
   `;
 
   return movies.map((film) => {
-    return { id: film.id, name: film.name, poster: film.poster };
+    return {
+      id: film.id,
+      name: film.name,
+      poster: film.poster,
+      rating: film.rating,
+    };
   });
 }
 

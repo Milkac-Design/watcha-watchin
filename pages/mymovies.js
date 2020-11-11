@@ -9,8 +9,6 @@ import { getSessionByToken } from '../utils/database';
 export default function MyMovies(props) {
   const [movieData, setMovieData] = useState(props.movies);
 
-  // console.log(props.id);
-
   return (
     <div className="paigeContainer">
       <Head>
@@ -39,17 +37,36 @@ export default function MyMovies(props) {
                     <div className="movieNameStyle">
                       <h3>{movie.name}</h3>
                     </div>
-                    <div className="ratingStyle">
-                      <input type="radio" name="rate" id="rate-5" />
-                      <label for="rate-5" class="fa fa-star"></label>
-                      <input type="radio" name="rate" id="rate-4" />
-                      <label for="rate-4" class="fa fa-star"></label>
-                      <input type="radio" name="rate" id="rate-3" />
-                      <label for="rate-3" class="fa fa-star"></label>
-                      <input type="radio" name="rate" id="rate-2" />
-                      <label for="rate-2" class="fa fa-star"></label>
-                      <input type="radio" name="rate" id="rate-1" />
-                      <label for="rate-1" class="fa fa-star"></label>
+                    <div className="ratingDisplayStyle">
+                      <label
+                        class={
+                          movie.rating > 0 ? 'fa fa-star checked' : 'fa fa-star'
+                        }
+                      ></label>
+
+                      <label
+                        class={
+                          movie.rating > 1 ? 'fa fa-star checked' : 'fa fa-star'
+                        }
+                      ></label>
+
+                      <label
+                        class={
+                          movie.rating > 2 ? 'fa fa-star checked' : 'fa fa-star'
+                        }
+                      ></label>
+
+                      <label
+                        class={
+                          movie.rating > 3 ? 'fa fa-star checked' : 'fa fa-star'
+                        }
+                      ></label>
+
+                      <label
+                        class={
+                          movie.rating > 4 ? 'fa fa-star checked' : 'fa fa-star'
+                        }
+                      ></label>
                     </div>
                     <div className="reviewStyle">
                       <p>{movie.review}</p>

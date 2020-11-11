@@ -95,12 +95,12 @@ h3 {
   justify-content: center;
 }
 .userListStyle {
-  width: 80%;
+  width: 60%;
   font-size: 40px;
   font-weight: 200;
   margin-bottom: 60px;
   background-color: #b7b7b7;
-  border-radius: 8px 60px;
+  border-radius: 20px 20px;
   color: #942e29;
   text-align: center;
 }
@@ -157,6 +157,7 @@ h3 {
 .movieNameStyle {
   text-align: center;
 }
+
 .ratingStyle {
   font-size: 32px;
   display: flex;
@@ -174,6 +175,23 @@ input:not(:checked) ~ label:hover ~ label {
   color: #fd4;
 }
 input:checked ~ label {
+  color: #fd4;
+  text-shadow: 0 0 20px #952;
+}
+
+.ratingDisplayStyle {
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+}
+.ratingDisplayStyle lable {
+  margin-right: 5px;
+}
+.ratingDisplayStyle input {
+  display: none;
+}
+
+.ratingDisplayStyle label.checked {
   color: #fd4;
   text-shadow: 0 0 20px #952;
 }
