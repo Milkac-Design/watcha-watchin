@@ -2,8 +2,12 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 import { isSessionTokenValid } from '../utils/auth';
 import nextCookies from 'next-cookies';
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Home(props) {
+  const [users, setUsers] = useState(props.users);
+
   return (
     <div className="paigeContainer">
       <Head>
@@ -21,9 +25,15 @@ export default function Home(props) {
             <h2>Users</h2>
             <div className="userListContainer">
               <ul className="listItemStyle">
-                <li>User One</li>
-                <li>User Two</li>
-                <li>User Three</li>
+                {users.map((user) => {
+                  return (
+                    <li>
+                      <Link href={`/${user.id}`}>
+                        <a>{user.username}</a>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
@@ -35,6 +45,10 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
+  const { getUsers } = await import('../utils/database');
+  const users = await getUsers();
+  // console.log(users);
+
   const token = nextCookies(context);
 
   if (!(await isSessionTokenValid(token.session))) {
@@ -48,5 +62,5 @@ export async function getServerSideProps(context) {
 
   const loggedIn = await isSessionTokenValid(token.session);
 
-  return { props: { loggedIn } };
+  return { props: { loggedIn, users } };
 }

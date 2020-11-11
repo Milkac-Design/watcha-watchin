@@ -68,9 +68,22 @@ export async function registerUser(username, password) {
   return user;
 }
 
+export async function getUsers() {
+  const users = await sql`SELECT * FROM users`;
+  return users.map((user) => {
+    return { id: user.id, username: user.username };
+  });
+}
+
 export async function getUserByUsername(username) {
   const user = await sql`
   SELECT * FROM users WHERE username = ${username}`;
+  return user[0];
+}
+
+export async function getUserById(id) {
+  const user = await sql`
+  SELECT username FROM users WHERE id = ${id}`;
   return user[0];
 }
 
