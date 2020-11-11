@@ -1,6 +1,6 @@
 export default function AddMovieToList(movie) {
   const theMovie = movie.movie;
-  console.log(theMovie.length);
+
   if (theMovie.length === 1) {
     const name = theMovie[0].name;
     const poster = theMovie[0].poster;

@@ -4,9 +4,12 @@ import AddMovie from '../components/AddMovie';
 import Layout from '../components/Layout';
 import nextCookies from 'next-cookies';
 import { isSessionTokenValid } from '../utils/auth';
+import { getSessionByToken } from '../utils/database';
 
 export default function MyMovies(props) {
   const [movieData, setMovieData] = useState(props.movies);
+
+  // console.log(props.id);
 
   return (
     <div className="paigeContainer">
@@ -67,7 +70,7 @@ export default function MyMovies(props) {
             })}
           </>
 
-          <AddMovie apiKey={props.apiKey} />
+          <AddMovie apiKey={props.apiKey} id={props.id} />
         </div>
         <div className="footerBuffer"></div>
       </Layout>
@@ -77,8 +80,9 @@ export default function MyMovies(props) {
 
 export async function getServerSideProps(context) {
   const { getMovies } = await import('../utils/database');
-  const movies = await getMovies();
   const token = nextCookies(context);
+  const id = await getSessionByToken(token.session);
+  const movies = await getMovies(id.userid);
 
   if (!(await isSessionTokenValid(token.session))) {
     return {
@@ -96,6 +100,7 @@ export async function getServerSideProps(context) {
       movies,
       apiKey,
       loggedIn,
+      id: id.userid,
     },
   };
 }

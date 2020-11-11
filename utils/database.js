@@ -14,7 +14,7 @@ const sql =
     : postgres();
 
 export async function insertMovie(movie) {
-  const requiredProperties = ['name', 'poster', 'review'];
+  const requiredProperties = ['name', 'poster', 'review', 'creator'];
   const movieProperties = Object.keys(movie);
 
   if (movieProperties.length !== requiredProperties.length) {
@@ -31,9 +31,9 @@ export async function insertMovie(movie) {
 
   const movies = await sql`
     INSERT INTO movies
-      (name, poster, review)
+      (name, poster, review, creator)
     VALUES
-      (${movie.name}, ${movie.poster}, ${movie.review})
+      (${movie.name}, ${movie.poster}, ${movie.review}, ${movie.creator})
     RETURNING *;
   `;
 
@@ -53,8 +53,8 @@ RETURNING *;
   });
 }
 
-export async function getMovies() {
-  const movies = await sql`SELECT * from movies`;
+export async function getMovies(id) {
+  const movies = await sql`SELECT * from movies WHERE creator = ${id}`;
   return movies;
 }
 export async function registerUser(username, password) {
@@ -67,6 +67,7 @@ export async function registerUser(username, password) {
   `;
   return user;
 }
+
 export async function getUserByUsername(username) {
   const user = await sql`
   SELECT * FROM users WHERE username = ${username}`;

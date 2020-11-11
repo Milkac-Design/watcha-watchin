@@ -1,31 +1,19 @@
 import { useState } from 'react';
 // import cookie from 'js-cookie';
 
-export default function AddMovie(apiKey) {
+export default function AddMovie({ apiKey, id }) {
   const [addedMovie, setAddedMovie] = useState({});
   const [movieTitle, setMovieTitle] = useState({});
   const [review, setReview] = useState('');
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await fetch(
-      `https://www.omdbapi.com/?apikey=${apiKey.apiKey}a&t=${movieTitle}`,
+      `https://www.omdbapi.com/?apikey=${apiKey}a&t=${movieTitle}`,
     );
     const data = await response.json();
     setAddedMovie(data);
     return setAddedMovie;
   }
-
-  // function addMovieToCookie(name, poster) {
-
-  //   let newMovie;
-
-  //   newMovie = [{ name: name, poster: poster }];
-
-  //   cookie.set('movie', newMovie);
-  //   return newMovie;
-  // }
-
-  //----------
 
   return (
     <>
@@ -45,6 +33,7 @@ export default function AddMovie(apiKey) {
                 name: addedMovie.Title,
                 poster: addedMovie.Poster,
                 review: review,
+                creator: id,
               },
             }),
           });
