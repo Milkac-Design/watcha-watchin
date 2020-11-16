@@ -10,6 +10,9 @@ export default function Header(props) {
         <Link href="/">
           <a>Home</a>
         </Link>
+        <Link href="/users">
+          <a>Users</a>
+        </Link>
         <Link href="/mymovies">
           <a>My Movies</a>
         </Link>

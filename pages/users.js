@@ -3,14 +3,15 @@ import Layout from '../components/Layout';
 import { isSessionTokenValid } from '../utils/auth';
 import nextCookies from 'next-cookies';
 import { useState } from 'react';
+import Link from 'next/link';
 
-export default function Home(props) {
+export default function Users(props) {
   const [users, setUsers] = useState(props.users);
 
   return (
     <div className="paigeContainer">
       <Head>
-        <title>Welcome</title>
+        <title>Users</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap"
@@ -18,18 +19,22 @@ export default function Home(props) {
         ></link>
       </Head>
       <Layout loggedIn={props.loggedIn}>
-        <h1 className="titleStyle">Welcome</h1>
-        <div className="container">
-          <div className="cardContainer">
-            <div className="card">
-              <div className="front">
-                <h3>flip here</h3>
-                <p>bla bla bla</p>
-              </div>
-              <div className="back">
-                <h3>back side</h3>
-                <p>dark side of thee mooon</p>
-              </div>
+        <h1 className="titleStyle">Watcha Watchin?</h1>
+        <div className="outsideContainer">
+          <div className="userListStyle">
+            <h2>Users</h2>
+            <div className="userListContainer">
+              <ul className="listItemStyle">
+                {users.map((user) => {
+                  return (
+                    <li>
+                      <Link href={`/${user.id}`}>
+                        <a>{user.username}</a>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
         </div>
