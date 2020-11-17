@@ -100,6 +100,7 @@ export async function getServerSideProps(context) {
   const { getMovies } = await import('../utils/database');
   const token = nextCookies(context);
   const id = await getSessionByToken(token.session);
+  console.log(id);
 
   if (!(await isSessionTokenValid(token.session))) {
     return {
@@ -110,6 +111,7 @@ export async function getServerSideProps(context) {
     };
   }
   const movies = await getMovies(id.userid);
+  console.log(movies);
 
   const loggedIn = await isSessionTokenValid(token.session);
   const apiKey = process.env.apiKey;
