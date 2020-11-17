@@ -11,7 +11,7 @@ export default function Home(props) {
     <div className="paigeContainer">
       <Head>
         <title>Welcome</title>
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
         <link
           href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap"
           rel="stylesheet"

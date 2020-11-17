@@ -5,9 +5,7 @@ import Footer from './Footer';
 export default function Layout(props) {
   return (
     <>
-      <Head>
-        <link rel="icon" href="/favicon.png" />
-      </Head>
+      <Head>{/* <link rel="icon" href="/favicon.png" /> */}</Head>
 
       <Header loggedIn={props.loggedIn} />
 

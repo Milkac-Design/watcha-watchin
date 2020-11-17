@@ -39,31 +39,31 @@ export default function MyMovies(props) {
                     </div>
                     <div className="ratingDisplayStyle">
                       <label
-                        class={
+                        className={
                           movie.rating > 0 ? 'fa fa-star checked' : 'fa fa-star'
                         }
                       ></label>
 
                       <label
-                        class={
+                        className={
                           movie.rating > 1 ? 'fa fa-star checked' : 'fa fa-star'
                         }
                       ></label>
 
                       <label
-                        class={
+                        className={
                           movie.rating > 2 ? 'fa fa-star checked' : 'fa fa-star'
                         }
                       ></label>
 
                       <label
-                        class={
+                        className={
                           movie.rating > 3 ? 'fa fa-star checked' : 'fa fa-star'
                         }
                       ></label>
 
                       <label
-                        class={
+                        className={
                           movie.rating > 4 ? 'fa fa-star checked' : 'fa fa-star'
                         }
                       ></label>

@@ -14,7 +14,7 @@ export default function AddMovieToList(movie) {
             <h3>{name}</h3>
           </div>
           <div className="ratingStyle">
-            <span class="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
             <span className="fa fa-star checked"></span>
             <span className="fa fa-star checked"></span>
             <span className="fa fa-star checked"></span>
