@@ -309,6 +309,8 @@ input:checked ~ label {
   width: 52px;
   margin-left: 0px;
   background: #e63232;
+  margin-top: -6px;
+  box-shadow: 1px 3px 3px gray;
   color: #ebf0fa;
 }
 
@@ -326,7 +328,9 @@ input:checked ~ label {
 .addButtonStyle:hover {
   height: 52px;
   width: 52px;
-  margin-left: 0px;
+  margin-left: 1px;
+  margin-top: -6px;
+  box-shadow: 1px 3px 3px gray;
   background: #0a5555;
   color: #ebf0fa;
 }
