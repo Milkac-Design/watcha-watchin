@@ -110,7 +110,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const movies = await getMovies(id.userid);
+  const movies = await getMovies(1);
   console.log(movies);
 
   const loggedIn = await isSessionTokenValid(token.session);
