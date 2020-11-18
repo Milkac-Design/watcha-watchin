@@ -16,15 +16,15 @@ export default function Header(props) {
         <Link href="/mymovies">
           <a>My Movies</a>
         </Link>
-        {!loggedInPassed ? null : props.loggedIn ? (
+        {loggedInPassed === true ? (
           <Link href="/logout">
             <a>Log out</a>
           </Link>
         ) : (
-          <Link href="/login">
-            <a>Log in</a>
-          </Link>
-        )}
+            <Link href="/login">
+              <a>Log in</a>
+            </Link>
+          )}
       </nav>
     </header>
   );

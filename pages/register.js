@@ -23,8 +23,11 @@ export default function Register(props) {
         ></link>
       </Head>
       <Layout>
-        <h1>Register</h1>
+        <div className='background'>
+        </div>
+        <h1 className='loginHeader'>Register</h1>
         <form
+          className='loginForm'
           onSubmit={async (e) => {
             e.preventDefault();
             const response = await fetch('/api/register', {
@@ -47,21 +50,21 @@ export default function Register(props) {
               }
             }
           }}
-        >
+        ><p className='loginParagraf'>Username</p>
           <input
             value={username}
             onChange={(e) => setUsername(e.currentTarget.value)}
-          />
+          /><p className='loginParagraf'>Password</p>
           <input
             value={password}
             type="password"
             onChange={(e) => setPassword(e.currentTarget.value)}
-          />
+          /><br />
           <button>Register</button>
         </form>
         <p>{errorMessage}</p>
         <Link href="/login">
-          <a>Login</a>
+          <a className='loginParagraf'>Login</a>
         </Link>
       </Layout>
       ;

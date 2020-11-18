@@ -11,7 +11,7 @@ export default function Layout(props) {
 
       <main className="mainStyle">{props.children}</main>
 
-      <Footer />
+      <Footer loggedIn={props.loggedIn} />
     </>
   );
 }

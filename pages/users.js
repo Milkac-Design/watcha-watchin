@@ -19,6 +19,8 @@ export default function Users(props) {
         ></link>
       </Head>
       <Layout loggedIn={props.loggedIn}>
+        <div className='background'>
+        </div>
         <h1 className="titleStyle">Watcha Watchin?</h1>
         <div className="outsideContainer">
           <div className="userListStyle">

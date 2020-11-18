@@ -23,6 +23,8 @@ export default function MyMovies(props) {
         ></link>
       </Head>
       <Layout loggedIn={props.loggedIn}>
+        <div className='background'>
+        </div>
         <h1 className="titleStyle">{user.username}'s Movies</h1>
         <div className="outsideMovieContainer">
           <>

@@ -27,8 +27,10 @@ export default function Login(props) {
         ></link>
       </Head>
       <Layout>
-        <h1>Login</h1>
-        <form
+        <div className='background'>
+        </div>
+        <h1 className='loginHeader'>Login</h1>
+        <form className='loginForm'
           onSubmit={async (e) => {
             e.preventDefault();
             const response = await fetch('/api/login', {
@@ -45,22 +47,25 @@ export default function Login(props) {
               router.push(props.redirectDestination);
             }
           }}
-        >
+        ><p className='loginParagraf'>Username</p>
           <input
             value={username}
             onChange={(e) => setUsername(e.currentTarget.value)}
           />
+          <p className='loginParagraf'>Password</p>
           <input
             value={password}
             type="password"
             onChange={(e) => setPassword(e.currentTarget.value)}
           />
+          <br />
           <button>Login</button>
         </form>
         <p>{errorMessage}</p>
         <Link href="/register">
-          <a>Register</a>
+          <a className='loginParagraf'>Register</a>
         </Link>
+
       </Layout>
       ;
     </>

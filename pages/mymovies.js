@@ -24,6 +24,8 @@ export default function MyMovies(props) {
         ></link>
       </Head>
       <Layout loggedIn={props.loggedIn}>
+        <div className='background'>
+        </div>
         <h1 className="titleStyle">My Movies</h1>
         <div className="outsideMovieContainer">
           <>
@@ -100,7 +102,6 @@ export async function getServerSideProps(context) {
   const { getMovies } = await import('../utils/database');
   const token = nextCookies(context);
   const id = await getSessionByToken(token.session);
-  console.log(id);
 
   if (!(await isSessionTokenValid(token.session))) {
     return {
@@ -110,7 +111,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  console.log('is this working');
+
   const movies = await getMovies(id.userid);
 
   const loggedIn = await isSessionTokenValid(token.session);
