@@ -161,11 +161,35 @@ h3 {
   min-width: 40%;
   margin: 10px 0;
 }
+.listItemStyle li{
+  display: flex;
+  align-items: center;
+}
 
 ul {
   list-style: none;
 }
 
+.removeUserButtonStyle{
+  height: 35px;
+  width: 70px;
+  margin-left: 30px;
+  border-radius: 10px;
+  background: #f8fbff;
+  color: #e63232;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.removeUserButtonStyle:hover {
+  height: 40px;
+  width: 72px;
+  margin-left: 25px;
+  background: #e63232;
+  margin-top: -6px;
+  box-shadow: 1px 3px 3px gray;
+  color: #ebf0fa;
+}
 
 .outsideMovieContainer {
   width: 82vw;

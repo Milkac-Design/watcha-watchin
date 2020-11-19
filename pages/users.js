@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import { isSessionTokenValid } from '../utils/auth';
+// import {deleteUser} from '../utils/database';
 import nextCookies from 'next-cookies';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -12,7 +13,7 @@ export default function Users(props) {
     <div className="paigeContainer">
       <Head>
         <title>Users</title>
-        {/* <link rel="icon" href="/favicon.ico" /> */}
+        <link rel="icon" href="/logo.png" />
         <link
           href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap"
           rel="stylesheet"
@@ -25,19 +26,48 @@ export default function Users(props) {
         <div className="outsideContainer">
           <div className="userListStyle">
             <h2>Users</h2>
-            <div className="userListContainer">
-              <ul className="listItemStyle">
-                {users.map((user) => {
-                  return (
-                    <li>
+            {props.id === 1 ? (
+              <div className="userListContainer">
+                <ul className="listItemStyle">
+                  {users.map((user) => {
+                   if(user.id !==1){ return (
+                      <li>
+                        <Link href={`/${user.id}`}>
+                          <a>{user.username}</a>
+                        </Link>
+                        <button
+                          className="removeUserButtonStyle"
+                          onClick={async (e) => {
+                            await fetch(`/api/users`, {
+                              method: 'DELETE',
+                              body: JSON.stringify(user.id),
+                            });
+                            window.location.href = `/users`;
+                          }}
+                        >remove user</button>
+                      </li>
+                    );}else{return( <li>
                       <Link href={`/${user.id}`}>
                         <a>{user.username}</a>
                       </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                     
+                    </li>)}
+                  })}
+                </ul>
+              </div>) : (<div className="userListContainer">
+                <ul className="listItemStyle">
+                  {users.map((user) => {
+                    return (
+                      <li>
+                        <Link href={`/${user.id}`}>
+                          <a>{user.username}</a>
+                        </Link>
+
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>)}
           </div>
         </div>
         <div className="footerBuffer"></div>
@@ -48,10 +78,11 @@ export default function Users(props) {
 
 export async function getServerSideProps(context) {
   const { getUsers } = await import('../utils/database');
+  const { getSessionByToken } = await import('../utils/database')
   const users = await getUsers();
-  // console.log(users);
 
   const token = nextCookies(context);
+  const id = await getSessionByToken(token.session);
 
   if (!(await isSessionTokenValid(token.session))) {
     return {
@@ -64,5 +95,5 @@ export async function getServerSideProps(context) {
 
   const loggedIn = await isSessionTokenValid(token.session);
 
-  return { props: { loggedIn, users } };
+  return { props: { loggedIn, users, id: id.userid } };
 }

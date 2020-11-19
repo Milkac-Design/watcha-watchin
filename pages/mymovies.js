@@ -13,7 +13,7 @@ export default function MyMovies(props) {
     <div className="paigeContainer">
       <Head>
         <title>My Movies</title>
-        {/* <link rel="icon" href="/favicon.ico" /> */}
+        <link rel="icon" href="/logo.png" />
         <link
           href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap"
           rel="stylesheet"
@@ -81,6 +81,7 @@ export default function MyMovies(props) {
                         method: 'DELETE',
                         body: JSON.stringify(movie.id),
                       });
+                      window.location.href = `/mymovies`;
                     }}
                   >
                     delete
