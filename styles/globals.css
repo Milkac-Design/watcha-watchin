@@ -206,6 +206,27 @@ ul {
   color: #ebf0fa;
 }
 
+.followUserButtonStyle {
+  height: 35px;
+  width: 70px;
+  margin-left: 30px;
+  border-radius: 10px;
+  background: #f8fbff;
+  color: #0a5555;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.followUserButtonStyle:hover {
+  height: 40px;
+  width: 72px;
+  margin-left: 25px;
+  background: #0a5555;
+  margin-top: -6px;
+  box-shadow: 1px 3px 3px gray;
+  color: #ebf0fa;
+}
+
 .outsideMovieContainer {
   width: 82vw;
   display: flex;

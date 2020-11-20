@@ -19,6 +19,9 @@ export default function AddMovie({ apiKey, id }) {
 
   return (
     <>
+      <h3>Add more movies</h3>
+      <hr className="hr" />
+      <br />
       <form className="searchFormStyle" onSubmit={handleSubmit}>
         <input
           className="searchInputStyle"
