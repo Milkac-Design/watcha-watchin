@@ -78,6 +78,7 @@ export default function AddMovie({ apiKey, id }) {
                 className="commentBox"
                 rows="3"
                 name="comment"
+                maxLength="250"
                 onChange={(e) => setReview(e.target.value)}
               ></textarea>
               <br />

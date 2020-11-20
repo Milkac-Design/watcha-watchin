@@ -319,7 +319,6 @@ input:checked ~ label {
   height: 60%;
   margin-right: 20px;
   padding: 5px;
-  overflow: scroll;
 }
 
 .reviewStyle p {
