@@ -12,6 +12,15 @@ export default function Users(props) {
   const [followers, setFollowers] = useState(getFollowers());
   const followed = followers.map((follow) => follow.id);
 
+  // const [filter, setFilter] = useState();
+
+  async function filterFollows() {
+    document.styleSheets[1].insertRule(
+      '.listItemStyle .notfollowed { display: none; }',
+      0,
+    );
+  }
+
   return (
     <div className="paigeContainer">
       <Head>
@@ -28,6 +37,10 @@ export default function Users(props) {
         <div className="outsideContainer">
           <div className="userListStyle">
             <h2>Users</h2>
+            <div>
+              <button onClick={(e)=>window.location.reload()}>all</button>
+              <button onClick={(e) => filterFollows()}>filter</button>
+            </div>
             {props.id === 1 ? (
               <div className="userListContainer">
                 <ul className="listItemStyle">
@@ -68,8 +81,35 @@ export default function Users(props) {
               <div className="userListContainer">
                 <ul className="listItemStyle">
                   {users.map((user) => {
-                    return (
-                      <li>
+                    return followed.includes(user.id) ? (
+                      <li className="followed">
+                        <Link href={`/${user.id}`}>
+                          <a>{user.username}</a>
+                        </Link>
+                        {followed.includes(user.id) ? (
+                          <button
+                            className="removeUserButtonStyle"
+                            onClick={(e) => {
+                              followUser(user.id);
+                              window.location.reload();
+                            }}
+                          >
+                            unfollow
+                          </button>
+                        ) : (
+                          <button
+                            className="followUserButtonStyle"
+                            onClick={(e) => {
+                              followUser(user.id);
+                              window.location.reload();
+                            }}
+                          >
+                            follow
+                          </button>
+                        )}
+                      </li>
+                    ) : (
+                      <li className="notfollowed">
                         <Link href={`/${user.id}`}>
                           <a>{user.username}</a>
                         </Link>
