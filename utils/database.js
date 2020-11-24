@@ -8,10 +8,10 @@ dotenv.config();
 const sql =
   process.env.NODE_ENV === 'production'
     ? // Heroku needs SSL connections but
-    // has an "unauthorized" certificate
-    // https://devcenter.heroku.com/changelog-items/852
-    postgres({ ssl: { rejectUnauthorized: false } })
-    : postgres();
+      // has an "unauthorized" certificate
+      // https://devcenter.heroku.com/changelog-items/852
+      postgres({ ssl: { rejectUnauthorized: false } })
+    : postgres({ idle_timeout: 2 });
 
 export async function insertMovie(movie) {
   const requiredProperties = ['name', 'poster', 'review', 'creator', 'rating'];
@@ -85,7 +85,7 @@ export async function deleteUser(id) {
 DELETE FROM users
 WHERE id = ${id}
 `;
-return user[0] ;
+  return user[0];
 }
 
 export async function getUserByUsername(username) {

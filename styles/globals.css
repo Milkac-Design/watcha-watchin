@@ -66,12 +66,17 @@ a:hover {
 h1 {
   font-size: 96px;
   font-weight: 300;
+  animation: flipInX;
+  animation-duration: 1s;
 }
 
 h2 {
   font-size: 64px;
   font-weight: 300;
   margin: 0 0 5px 0;
+  animation: flipInX;
+  animation-duration: 1s;
+  animation-delay: 1s;
 }
 
 h3 {
@@ -271,6 +276,8 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  animation: fadeInLeft;
+  animation-duration: 1500ms;
 }
 
 .moviePosterStyle {
@@ -444,7 +451,8 @@ flip card experiment
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  /* border-right: solid; */
+  animation: fadeInLeft;
+  animation-duration: 1500ms;
   width: 48%;
 }
 
@@ -459,7 +467,8 @@ flip card experiment
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  /* border-left: solid; */
+  animation: fadeInRight;
+  animation-duration: 1500ms;
   width: 48%;
 }
 .back p {

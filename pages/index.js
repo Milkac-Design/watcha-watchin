@@ -13,10 +13,13 @@ export default function Home(props) {
           href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap"
           rel="stylesheet"
         ></link>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
       </Head>
       <Layout loggedIn={props.loggedIn}>
-        <div className='background'>
-        </div>
+        <div className="background"></div>
         <h1 className="titleStyle">Welcome</h1>
         <div className="container">
           <div className="cardContainer">
@@ -33,11 +36,13 @@ export default function Home(props) {
               <div className="back">
                 <h3>Share with the community</h3>
                 <br />
-                <p>Group of movie lovers sharing their thoughts and experiences</p>
+                <p>
+                  Group of movie lovers sharing their thoughts and experiences
+                </p>
               </div>
             </div>
           </div>
-          <hr className='hr' />
+          <hr className="hr" />
           <div className="cardContainer">
             <div className="card">
               <div className="front">
@@ -79,8 +84,8 @@ export async function getServerSideProps(context) {
 
   if (!(await isSessionTokenValid(token.session))) {
     return {
-      props: {}
-    }
+      props: {},
+    };
   }
   console.log('hello');
 

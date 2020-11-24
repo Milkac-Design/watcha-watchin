@@ -27,10 +27,10 @@ export default function Login(props) {
         ></link>
       </Head>
       <Layout>
-        <div className='background'>
-        </div>
-        <h1 className='loginHeader'>Login</h1>
-        <form className='loginForm'
+        <div className="background"></div>
+        <h1 className="loginHeader">Login</h1>
+        <form
+          className="loginForm"
           onSubmit={async (e) => {
             e.preventDefault();
             const response = await fetch('/api/login', {
@@ -47,25 +47,27 @@ export default function Login(props) {
               router.push(props.redirectDestination);
             }
           }}
-        ><p className='loginParagraf'>Username</p>
+        >
+          <p className="loginParagraf">Username</p>
           <input
+            data-cy="username"
             value={username}
             onChange={(e) => setUsername(e.currentTarget.value)}
           />
-          <p className='loginParagraf'>Password</p>
+          <p className="loginParagraf">Password</p>
           <input
+            data-cy="password"
             value={password}
             type="password"
             onChange={(e) => setPassword(e.currentTarget.value)}
           />
           <br />
-          <button>Login</button>
+          <button data-cy="submit">Login</button>
         </form>
         <p>{errorMessage}</p>
         <Link href="/register">
-          <a className='loginParagraf'>Register</a>
+          <a className="loginParagraf">Register</a>
         </Link>
-
       </Layout>
       ;
     </>

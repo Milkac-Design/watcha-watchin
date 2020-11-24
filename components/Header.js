@@ -7,24 +7,24 @@ export default function Header(props) {
     <header className="headerStyle">
       <img className="logoStyle" src="./logo.png" alt="logo" />
       <nav>
-        <Link href="/">
-          <a>Home</a>
+        <Link href="/" data-cy="home">
+          <a data-cy="home">Home</a>
         </Link>
-        <Link href="/users">
-          <a>Users</a>
+        <Link data-cy="users" href="/users">
+          <a data-cy="users">Users</a>
         </Link>
-        <Link href="/mymovies">
-          <a>My Movies</a>
+        <Link data-cy="mymovies" href="/mymovies">
+          <a data-cy="mymovies">My Movies</a>
         </Link>
         {loggedInPassed === true ? (
           <Link href="/logout">
             <a>Log out</a>
           </Link>
         ) : (
-            <Link href="/login">
-              <a>Log in</a>
-            </Link>
-          )}
+          <Link href="/login">
+            <a>Log in</a>
+          </Link>
+        )}
       </nav>
     </header>
   );

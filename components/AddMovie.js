@@ -24,11 +24,14 @@ export default function AddMovie({ apiKey, id }) {
       <br />
       <form className="searchFormStyle" onSubmit={handleSubmit}>
         <input
+          data-cy="searchMovieInput"
           className="searchInputStyle"
           type="text"
           onChange={(e) => setMovieTitle(e.target.value)}
         />
-        <button className="searchButtonStyle">search</button>
+        <button data-cy="searchMovieButton" className="searchButtonStyle">
+          search
+        </button>
       </form>
       <div className="movieContainer">
         <div className="moviePosterStyle">
@@ -45,39 +48,40 @@ export default function AddMovie({ apiKey, id }) {
               id="rate-5"
               onClick={(e) => setRating(5)}
             />
-            <label for="rate-5" className="fa fa-star"></label>
+            <label data-cy="rate5" for="rate-5" className="fa fa-star"></label>
             <input
               type="radio"
               name="rate"
               id="rate-4"
               onClick={(e) => setRating(4)}
             />
-            <label for="rate-4" className="fa fa-star"></label>
+            <label data-cy="rate4" for="rate-4" className="fa fa-star"></label>
             <input
               type="radio"
               name="rate"
               id="rate-3"
               onClick={(e) => setRating(3)}
             />
-            <label for="rate-3" className="fa fa-star"></label>
+            <label data-cy="rate3" for="rate-3" className="fa fa-star"></label>
             <input
               type="radio"
               name="rate"
               id="rate-2"
               onClick={(e) => setRating(2)}
             />
-            <label for="rate-2" className="fa fa-star"></label>
+            <label data-cy="rate2" for="rate-2" className="fa fa-star"></label>
             <input
               type="radio"
               name="rate"
               id="rate-1"
               onClick={(e) => setRating(1)}
             />
-            <label for="rate-1" className="fa fa-star"></label>
+            <label data-cy="rate1" for="rate-1" className="fa fa-star"></label>
           </div>
           <div className="reviewStyle">
             <form>
               <textarea
+                data-cy="review"
                 className="commentBox"
                 rows="3"
                 name="comment"
@@ -89,6 +93,7 @@ export default function AddMovie({ apiKey, id }) {
           </div>
         </div>
         <button
+          data-cy="addMovie"
           className="addButtonStyle"
           onClick={async (e) => {
             await fetch('/api/movies', {

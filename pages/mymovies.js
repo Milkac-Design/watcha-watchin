@@ -20,12 +20,11 @@ export default function MyMovies(props) {
         ></link>
         <link
           rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-        ></link>
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
       </Head>
       <Layout loggedIn={props.loggedIn}>
-        <div className='background'>
-        </div>
+        <div className="background"></div>
         <h1 className="titleStyle">My Movies</h1>
         <div className="outsideMovieContainer">
           <>
