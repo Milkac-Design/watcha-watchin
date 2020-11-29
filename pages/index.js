@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 import { isSessionTokenValid } from '../utils/auth';
 import nextCookies from 'next-cookies';
+import Clock from '../components/clock';
 
 export default function Home(props) {
   return (
@@ -20,6 +21,7 @@ export default function Home(props) {
       </Head>
       <Layout loggedIn={props.loggedIn}>
         <div className="background"></div>
+        <Clock />
         <h1 className="titleStyle">Welcome</h1>
         <div className="container">
           <div className="cardContainer">
@@ -87,7 +89,6 @@ export async function getServerSideProps(context) {
       props: {},
     };
   }
-  console.log('hello');
 
   const loggedIn = await isSessionTokenValid(token.session);
 

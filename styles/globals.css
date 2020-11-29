@@ -68,6 +68,7 @@ h1 {
   font-weight: 300;
   animation: flipInX;
   animation-duration: 1s;
+  margin: 20px 0;
 }
 
 h2 {
@@ -419,12 +420,9 @@ input:checked ~ label {
   color: #f8fbff;
 }
 
-/*
-flip card experiment
-*/
 .container {
   width: 70vw;
-  height: 110vh;
+  height: 92vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -434,7 +432,7 @@ flip card experiment
 
 .cardContainer {
   width: 70vw;
-  height: 53vh;
+  height: 45vh;
   display: flex;
 }
 
@@ -474,4 +472,10 @@ flip card experiment
 .back p {
   font-size: 24px;
   margin: 8px;
+}
+
+.clock {
+  width: 100%;
+  text-align: end;
+  margin: 10px 20px 0 0;
 }

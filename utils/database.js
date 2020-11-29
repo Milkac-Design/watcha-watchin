@@ -4,6 +4,7 @@ import setPostgresOnHeroku from './setPostgressOnHeroku';
 
 setPostgresOnHeroku();
 dotenv.config();
+console.log(process.env.NODE_ENV);
 
 const sql =
   process.env.NODE_ENV === 'production'
@@ -11,8 +12,7 @@ const sql =
       // has an "unauthorized" certificate
       // https://devcenter.heroku.com/changelog-items/852
       postgres({ ssl: { rejectUnauthorized: false } })
-    : postgres({ idle_timeout: 2 });
-
+    : postgres();
 export async function insertMovie(movie) {
   const requiredProperties = ['name', 'poster', 'review', 'creator', 'rating'];
   const movieProperties = Object.keys(movie);
