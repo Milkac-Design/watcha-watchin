@@ -5,7 +5,7 @@ export default function Header(props) {
   return (
     <footer className="footerStyle">
       <img className="logoStyle" src="./logo.png" alt="logo" />
-      <div className='getInTouch'>
+      <div className="getInTouch">
         <p>Get in touch: </p>
         <Link href="https://github.com/Milkac-Design">
           <a target="_blank">
@@ -18,7 +18,7 @@ export default function Header(props) {
           </a>
         </Link>
       </div>
-      <nav>
+      <nav className="footerNav">
         <Link href="/">
           <a>Home</a>
         </Link>

@@ -479,3 +479,94 @@ input:checked ~ label {
   text-align: end;
   margin: 10px 20px 0 0;
 }
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 70px;
+    text-align: center;
+  }
+  h2 {
+    font-size: 60px;
+  }
+  .headerStyle {
+    display: block;
+    font-size: 25px;
+    max-height: 120px;
+  }
+  .footerStyle {
+    height: 25vh;
+    max-height: 200px;
+    font-size: 24px;
+  }
+  .logoStyle {
+    max-height: 30%;
+  }
+  .getInTouch {
+    margin-left: 25px;
+  }
+  .footerNav {
+    display: flex;
+    flex-direction: column;
+  }
+  .footerBuffer {
+    height: 26vh;
+    max-height: 180px;
+  }
+  .container {
+    width: 90vw;
+  }
+  .cardContainer {
+    width: 90vw;
+  }
+  .front p {
+    font-size: 20px;
+  }
+  .back p {
+    font-size: 20px;
+  }
+  .outsideContainer {
+    width: 100%;
+  }
+  .userListStyle {
+    width: 70%;
+  }
+  .outsideMovieContainer {
+    width: 100%;
+  }
+  .movieContainer {
+    width: 95%;
+    display: contents;
+  }
+  .moviePosterStyle {
+    height: 50vh;
+    width: auto;
+  }
+  .movieDataStyle {
+    width: 90%;
+  }
+  .reviewStyle {
+    margin-right: 0;
+  }
+  .deleteButtonStyle {
+    width: 80vw;
+    font-size: 20px;
+  }
+  .searchFormStyle {
+    width: 80%;
+    flex-direction: column;
+    height: 80px;
+  }
+  .searchInputStyle {
+    width: 100%;
+    height: 32px;
+  }
+  .searchButtonStyle {
+    width: 100%;
+    height: 32px;
+    font-size: 20px;
+  }
+  .addButtonStyle {
+    width: 80%;
+    font-size: 20px;
+  }
+}
